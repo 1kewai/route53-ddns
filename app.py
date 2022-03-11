@@ -1,6 +1,7 @@
 import boto3
 import requests
 import auth
+import time
 
 def check_my_ip() -> str:
     try:
@@ -52,4 +53,6 @@ def main_job():
     for domain in auth.domains:
         create_aws_record(auth.zoneid, domain, ip, "A")
 
-main_job()
+while(1):
+    main_job()
+    time.sleep(60*60*24)
