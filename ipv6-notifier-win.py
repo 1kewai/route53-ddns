@@ -6,11 +6,11 @@ import re
 
 def check_my_ip():
   ip_raw = subprocess.run(["ipconfig"], stdout=subprocess.PIPE)
-  ips = str(ip_raw.stdout).replace(" ","").split("\\n")
+  ips = str(ip_raw.stdout.decode("sjis")).replace(" ","").replace("\r","").split("\n")
   address = ""
   for ip in ips:
-      if ip.startswith("IPv6 アドレス . . . . . . . . . . . .:"):
-          address = ip[5:ip.find("prefixlen")]
+      if ip.startswith("IPv6アドレス............:"):
+          address = ip[ip.find(":")+1:]
           break
   return address
 
